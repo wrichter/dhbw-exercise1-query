@@ -6,3 +6,4 @@ bases:
 images:
 - name: replace/me/query
   newName: quay.io/wrichter/dhbw-exercise-1-query
+  newTag: main
