@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"query:latest","namespace":"wrichter-dhbw-exercise-1"},"fieldPath":"spec.template.spec.containers[?(@.name==\"query\")].image","pause":"false"}]'
+  labels:
+    app: query
+    app.kubernetes.io/component: query
+    app.kubernetes.io/instance: query
+    app.kubernetes.io/part-of: dhbw-exercise-1
+  name: query
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: query
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: query
+        deploymentconfig: query
+    spec:
+      containers:
+      - image: replace/me/query:latest
+        imagePullPolicy: Always
+        name: query
+        ports:
+        - containerPort: 4002
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

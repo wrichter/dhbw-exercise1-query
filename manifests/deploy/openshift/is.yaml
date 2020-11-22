@@ -1,0 +1,21 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: query
+    app.kubernetes.io/component: query
+    app.kubernetes.io/instance: query
+    app.kubernetes.io/part-of: dhbw-exercise-1
+  name: query
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: replace/me/query:latest
+    importPolicy:
+      scheduled: true
+    name: latest
+    referencePolicy:
+      type: Source
