@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/component: query
     app.kubernetes.io/instance: query
     app.kubernetes.io/part-of: dhbw-exercise-1
+    app.openshift.io/runtime: nodejs
   name: query
 spec:
   progressDeadlineSeconds: 600
